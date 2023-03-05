@@ -11,6 +11,7 @@ router.post("/save-notification", async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+    
 });
 
 //get notifications
@@ -26,6 +27,7 @@ router.get("/get-notification/:id", async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+
 
 });
 
@@ -44,6 +46,7 @@ router.put("/read-notification/:id", async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+ 
 });
 
 

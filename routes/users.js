@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { Router } = require("express");
 //update user
 router.put("/:id", async (req, res) => {
+
     if (req.body.userId === req.params.id || req.user.isAdmin) {
         if (req.body.password) {
             try {
@@ -24,6 +25,7 @@ router.put("/:id", async (req, res) => {
     } else {
         return res.status(403).json("You can update only your account!")
     }
+    
 })
 //delete user
 router.delete("/:id", async (req, res) => {
@@ -38,10 +40,12 @@ router.delete("/:id", async (req, res) => {
     } else {
         return res.status(403).json("You can delete only your account!");
     }
+    
 });
 
 //get User
 router.get("/", async (req, res) => {
+    
     const userId = req.query.userId;
     const username = req.query.username;
     try {
@@ -53,6 +57,7 @@ router.get("/", async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+    
 });
 
 //get friends
@@ -75,20 +80,19 @@ router.get("/friends/:userId", async (req, res) => {
     } catch (err) {
        res.status(500).json(err);
     }
+    
   });
 
 //search friend
 
 router.get("/search-friends/", async (req, res) => {
     try {
-
-        const user = await User.find({});
-      
-        
+    const user = await User.find({});
       res.status(200).json(user)
     } catch (err) {
        res.status(500).json(err);
     }
+    
   });
 
 
@@ -113,6 +117,7 @@ router.put("/:id/follow", async (req, res) => {
     } else {
         res.status(403).json("you cant follow yourself");
     }
+    
 });
 
 
@@ -136,6 +141,7 @@ router.put("/:id/unfollow", async (req, res) => {
     } else {
         res.status(403).json("you cant unfollow yourself");
     }
+    
 });
 
 
