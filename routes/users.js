@@ -45,19 +45,20 @@ router.delete("/:id", async (req, res) => {
 
 //get User
 router.get("/", async (req, res) => {
-    
     const userId = req.query.userId;
-    const username = req.query.username;
-    try {
-        const user = userId 
-        ? await User.findById(userId) 
-        : await User.findOne({ username: username });
-        const { password, updatedAt, ...other } = user._doc;
-        res.status(200).json(other);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-    
+  const username = req.query.username;
+
+  try {
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+
+
+    const { password, updatedAt, ...other } = user._doc;
+    res.status(200).json(other);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //get friends
@@ -143,6 +144,20 @@ router.put("/:id/unfollow", async (req, res) => {
     }
     
 });
+
+router.get("/username/:username", async (req, res) => {
+    try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 
 

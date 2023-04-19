@@ -17,14 +17,16 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
     });
     const token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: '1h' });
-    await Token.create({ user: user._id, token });
+    user.token = token;
+    await user.save();
     res.status(201).json({ token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
   }
-  
 });
+
+
 
 // Login route
 router.post('/login', async (req, res) => {

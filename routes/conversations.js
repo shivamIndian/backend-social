@@ -4,7 +4,6 @@ const Conversation = require("../models/Conversation");
 //new conv
 
 router.post("/", async (req, res) => {
-  console.log("from api route converstionjs");
   const newConversation = new Conversation({
     members: [req.body.senderId, req.body.receiverId],
   });
@@ -21,7 +20,6 @@ router.post("/", async (req, res) => {
 //get conv of a user
 
 router.get("/:userId", async (req, res) => {
-  console.log("hello world");
   try {
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
